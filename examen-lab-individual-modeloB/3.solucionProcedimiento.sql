@@ -36,7 +36,6 @@ BEGIN
 
     -- COmprobar que el precio del regalo no sea mayor a 50€
     IF p_precio > 50 THEN
-      DELETE FROM Productos WHERE id = v_regaloId;
       SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'No se permite crear un producto para regalo de más de 50€';
     END IF;
 
