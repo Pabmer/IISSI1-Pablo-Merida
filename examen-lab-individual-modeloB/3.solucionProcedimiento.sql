@@ -36,6 +36,7 @@ BEGIN
 
     -- COmprobar que el precio del regalo no sea mayor a 50€
     IF p_precio > 50 THEN
+      ROLLBACK;
       SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'No se permite crear un producto para regalo de más de 50€';
     END IF;
 
@@ -48,7 +49,7 @@ BEGIN
     -- Seleccionar la direccion de envio 
     SELECT c.direccionEnvio INTO v_direccionEnvio
     FROM Clientes c 
-    WHERE c.id = v_clienteId
+    WHERE c.id = v_clienteId;
 
     -- Crear el pedido por defecto
     INSERT INTO Pedidos (clienteId, direccionEntrega, fechaRealizacion)
